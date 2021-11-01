@@ -1,4 +1,4 @@
-https://github.com/nimblehq/git-template/issues/??
+https://github.com/nimblehq/android-common-ktx/issues/??
 
 ## What happened 👀
 
