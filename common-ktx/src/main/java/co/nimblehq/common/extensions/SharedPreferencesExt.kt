@@ -1,8 +1,10 @@
 package co.nimblehq.common.extensions
 
-import android.content.*
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import com.google.gson.Gson
+import java.lang.Exception
 
 val Context.myAppPreferences: SharedPreferences
     get() = getSharedPreferences(
@@ -11,7 +13,11 @@ val Context.myAppPreferences: SharedPreferences
     )
 
 inline fun <reified T : Any> SharedPreferences.getObject(key: String): T? {
-    return Gson().fromJson<T>(getString(key, null), T::class.java)
+    return try {
+        Gson().fromJson<T>(getString(key, null), T::class.java)
+    }catch (e : Exception) {
+        null
+    }
 }
 
 @Suppress("UNCHECKED_CAST")
@@ -19,6 +25,8 @@ inline fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T?
     return when (T::class) {
         Boolean::class -> getBoolean(key, defaultValue as? Boolean? ?: false) as T
         Float::class -> getFloat(key, defaultValue as? Float? ?: 0.0f) as T
+        // We need convert toString() before toDouble() to ensure the exact value
+        Double::class -> getFloat(key, (defaultValue as? Double?)?.toFloat() ?: 0.0f).toString().toDouble() as T
         Int::class -> getInt(key, defaultValue as? Int? ?: 0) as T
         Long::class -> getLong(key, defaultValue as? Long? ?: 0L) as T
         String::class -> getString(key, defaultValue as? String? ?: "") as T
@@ -27,12 +35,11 @@ inline fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T?
                 getStringSet(key, defaultValue as Set<String>) as T
             } else {
                 val typeName = T::class.java.simpleName
-                throw Error("Unable to get shared preference with value type '$typeName'. Use getObject")
+                throw Exception("Unable to get shared preference with value type '$typeName'. Use getObject")
             }
         }
     }
 }
-
 
 @Suppress("UNCHECKED_CAST")
 inline operator fun <reified T : Any> SharedPreferences.set(key: String, value: T) {
@@ -40,6 +47,8 @@ inline operator fun <reified T : Any> SharedPreferences.set(key: String, value: 
         when (T::class) {
             Boolean::class -> putBoolean(key, value as Boolean)
             Float::class -> putFloat(key, value as Float)
+            // We need convert toString() before toDouble() to ensure the exact value
+            Double::class -> putFloat(key, (value as Double).toString().toFloat())
             Int::class -> putInt(key, value as Int)
             Long::class -> putLong(key, value as Long)
             String::class -> putString(key, value as String)
@@ -47,8 +56,12 @@ inline operator fun <reified T : Any> SharedPreferences.set(key: String, value: 
                 if (value is Set<*>) {
                     putStringSet(key, value as Set<String>)
                 } else {
-                    val json = Gson().toJson(value)
-                    putString(key, json)
+                    try{
+                        val json = Gson().toJson(value)
+                        putString(key, json)
+                    }catch (e : Exception) {
+                        throw e
+                    }
                 }
             }
         }
@@ -61,4 +74,3 @@ fun SharedPreferences.clearAll() {
         clear()
     }
 }
-
