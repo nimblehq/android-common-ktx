@@ -1,7 +1,13 @@
 package co.nimblehq.common.extensions
 
+import android.graphics.*
+import android.os.Handler
 import android.view.View
+import android.widget.ScrollView
 import androidx.annotation.DimenRes
+
+private const val COLLAPSED_STATE_ROTATION = 180f
+private const val EXPANDED_STATE_ROTATION = 0f
 
 fun View.visible() {
     this.visibility = View.VISIBLE
@@ -51,4 +57,24 @@ fun View.setTopPadding(padding: Int) {
 
 fun View.enableWhen(predicate: () -> Boolean) {
     this.isEnabled = predicate()
+}
+
+fun View.convertPxToSp(px: Int): Float {
+    return px / resources.displayMetrics.scaledDensity
+}
+
+fun View.convertSpToPx(sp: Float): Int {
+    return (sp * resources.displayMetrics.scaledDensity).toInt()
+}
+
+fun View.getBitmap(height: Int, width: Int): Bitmap {
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    val bgDrawable = this.background
+    if (bgDrawable != null)
+        bgDrawable.draw(canvas)
+    else
+        canvas.drawColor(Color.WHITE)
+    this.draw(canvas)
+    return bitmap
 }
