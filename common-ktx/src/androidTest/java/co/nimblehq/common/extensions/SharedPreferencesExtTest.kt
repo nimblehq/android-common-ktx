@@ -104,5 +104,16 @@ class SharedPreferencesExtTest {
         val test = mSharedPreferences.get(TEST_KEY, mapOf<String, Int>())
     }
 
+    @Test
+    fun testClearAll() {
+        val testValue = "Nimble"
+        mSharedPreferences[TEST_KEY] = testValue
+        var test = mSharedPreferences.get(TEST_KEY, "")
+        assertThat(test, `is`(testValue))
+        mSharedPreferences.clearAll()
+        test = mSharedPreferences.get(TEST_KEY, "")
+        assertThat(test, `is`(""))
+    }
+
     inner class TestClass
 }

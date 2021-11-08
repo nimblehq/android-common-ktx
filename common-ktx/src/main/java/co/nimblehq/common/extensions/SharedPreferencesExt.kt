@@ -72,5 +72,5 @@ inline operator fun <reified T : Any> SharedPreferences.set(key: String, value: 
 fun SharedPreferences.clearAll() {
     with(edit()) {
         clear()
-    }
+    }.apply()
 }
