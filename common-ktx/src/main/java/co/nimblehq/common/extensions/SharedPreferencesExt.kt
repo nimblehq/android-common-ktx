@@ -1,21 +1,18 @@
 package co.nimblehq.common.extensions
 
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import java.lang.Exception
-
-val Context.myAppPreferences: SharedPreferences
-    get() = getSharedPreferences(
-        "${this.packageName}_${this.javaClass.simpleName}",
-        MODE_PRIVATE
-    )
+import com.google.gson.JsonIOException
+import com.google.gson.internal.Streams
+import com.google.gson.stream.JsonWriter
+import java.io.IOException
+import java.lang.Appendable
+import java.lang.reflect.Type
 
 inline fun <reified T : Any> SharedPreferences.getObject(key: String): T? {
     return try {
         Gson().fromJson<T>(getString(key, null), T::class.java)
-    }catch (e : Exception) {
+    } catch (e: Exception) {
         null
     }
 }
@@ -42,6 +39,7 @@ inline fun <reified T : Any> SharedPreferences.get(key: String, defaultValue: T?
 }
 
 @Suppress("UNCHECKED_CAST")
+@Throws(Exception::class)
 inline operator fun <reified T : Any> SharedPreferences.set(key: String, value: T) {
     with(edit()) {
         when (T::class) {
@@ -56,12 +54,8 @@ inline operator fun <reified T : Any> SharedPreferences.set(key: String, value: 
                 if (value is Set<*>) {
                     putStringSet(key, value as Set<String>)
                 } else {
-                    try{
-                        val json = Gson().toJson(value)
-                        putString(key, json)
-                    }catch (e : Exception) {
-                        throw e
-                    }
+                    val json = Gson().toJson(value)
+                    putString(key, json)
                 }
             }
         }
