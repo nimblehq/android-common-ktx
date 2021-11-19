@@ -1,14 +1,13 @@
 package co.nimblehq.common.extensions
 
 import android.graphics.*
-import android.os.Handler
 import android.view.View
-import android.widget.ScrollView
 import androidx.annotation.DimenRes
 
 /**
-* Make view visible.
-*/
+ * Make view visible.
+ *
+ */
 fun View.visible() {
     this.visibility = View.VISIBLE
 }
@@ -102,6 +101,8 @@ fun View.enableWhen(predicate: () -> Boolean) {
  * Convert pixel to Sp for Font sizing usage.
  *
  * @param px The pixel amount.
+ *
+ * @return value in Sp unit
  */
 fun View.convertPxToSp(px: Int): Float {
     return px / resources.displayMetrics.scaledDensity
@@ -111,6 +112,8 @@ fun View.convertPxToSp(px: Int): Float {
  * Convert Sp to pixel.
  *
  * @param sp The Sp amount.
+ *
+ * @return value in Dp unit
  */
 fun View.convertSpToPx(sp: Float): Int {
     return (sp * resources.displayMetrics.scaledDensity).toInt()
@@ -121,6 +124,8 @@ fun View.convertSpToPx(sp: Float): Int {
  *
  * @param height Height of bitmap result.
  * @param width Width of bitmap result.
+ *
+ * @return bitmap with given height and width
  */
 fun View.getBitmap(height: Int, width: Int): Bitmap {
     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
