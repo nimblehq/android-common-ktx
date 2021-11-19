@@ -14,6 +14,8 @@ val yesterday: Date
 
 /**
  * Set set the date from millisecond time stamp
+ *
+ * @param value - time in millisecond
  */
 private fun setDate(value: Int): Date {
     val calendar = Calendar.getInstance()
@@ -24,6 +26,8 @@ private fun setDate(value: Int): Date {
 
 /**
  * Move forward with the type specific time interval like day, week, moth, year
+ *
+ * @param duration - time in interval
  */
 operator fun Date.plus(duration: TimeInterval): Date {
     val calendar = Calendar.getInstance()
@@ -34,6 +38,8 @@ operator fun Date.plus(duration: TimeInterval): Date {
 
 /**
  * Move backward with the type specific time interval like day, week, moth, year
+ *
+ * @param duration - time in interval
  */
 operator fun Date.minus(duration: TimeInterval): Date {
     val calendar = Calendar.getInstance()
@@ -44,11 +50,21 @@ operator fun Date.minus(duration: TimeInterval): Date {
 
 /**
  * Get the range between two date
+ *
+ * @param other - Date to set range with the current
  */
 operator fun Date.rangeTo(other: Date) = DateRange(this, other)
 
 /**
  * Set the date with specific time
+ *
+ * @param year - positive int
+ * @param month - positive int
+ * @param day - positive int
+ * @param hour - positive int
+ * @param minute - positive int
+ * @param second - positive int
+ * @param millisecond - positive int
  */
 fun Date.with(
     year: Int = -1,
@@ -73,6 +89,8 @@ fun Date.with(
 
 /**
  * Set the current date to the weekday of month
+ *
+ * @param weekday - week of moth
  */
 fun Date.with(weekday: Int = -1): Date {
     val calendar = Calendar.getInstance()
@@ -150,6 +168,8 @@ val Date.endOfMinute: Date
 
 /**
  * Convert date to specific string format
+ *
+ * @param format - format date, ex: dd/MM/yyyy
  */
 fun Date.toString(format: String): String = SimpleDateFormat(format).format(this)
 
@@ -254,7 +274,10 @@ val Date.isTomorrow: Boolean
     get() = isDateIn(this, 1)
 
 /**
- * Check if the current date is Thursday
+ * Check if the date is in a specific time
+ *
+ * @param date - Date want to check
+ * @param variable - time of date
  */
 private fun isDateIn(date: Date, variable: Int = 0): Boolean {
     val now = Calendar.getInstance()
