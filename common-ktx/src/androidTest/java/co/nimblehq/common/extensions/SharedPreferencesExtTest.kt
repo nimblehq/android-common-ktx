@@ -19,7 +19,7 @@ class SharedPreferencesExtTest {
     private val TEST_KEY = "TEST_KEY"
 
     @Before
-    fun setup() {
+    private fun setup() {
         sharedPreferences = context.getSharedPreferences(
             "test_${this.javaClass.simpleName}",
             Context.MODE_PRIVATE
@@ -27,7 +27,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testSetterAndGetterBooleanValue() {
+    private fun when_set_with_boolean_value_then_return_the_correct_one() {
         val testValue = true
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.get(TEST_KEY, false)
@@ -35,7 +35,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testSetterAndGetterFloatValue() {
+    private fun when_set_with_float_value_then_return_the_correct_one() {
         val testValue = 2.1f
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.get(TEST_KEY, 0f)
@@ -43,7 +43,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testSetterAndGetterDoubleValue() {
+    private fun when_set_with_double_value_then_return_the_correct_one() {
         val testValue = 2.2
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.get(TEST_KEY, 0.0)
@@ -51,7 +51,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testSetterAndGetterIntValue() {
+    private fun when_set_with_int_value_then_return_the_correct_one() {
         val testValue = 9
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.get(TEST_KEY, 0)
@@ -59,7 +59,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testSetterAndGetterLongValue() {
+    private fun when_set_with_long_value_then_return_the_correct_one() {
         val testValue = 1000L
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.get(TEST_KEY, 0L)
@@ -67,7 +67,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testSetterAndGetterStringValue() {
+    private fun when_set_with_string_value_then_return_the_correct_one() {
         val testValue = "Nimble"
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.get(TEST_KEY, "")
@@ -75,7 +75,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testSetterAndGetterSetStringValue() {
+    private fun when_set_with_set_string_value_then_return_the_correct_one() {
         val testValue = setOf("Nimble", "Family")
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.get(TEST_KEY, setOf<String>())
@@ -83,7 +83,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testSetterAndGetterObjectValue() {
+    private fun when_set_with_object_value_then_return_the_correct_one() {
         val testValue = TestClass()
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.getObject<TestClass>(TEST_KEY)
@@ -91,7 +91,7 @@ class SharedPreferencesExtTest {
     }
 
     @Test
-    fun testWithWrongSaveUnsupportedObject() {
+    private fun when_get_with_wrong_type_then_return_null_value() {
         val testValue = Integer(1)
         sharedPreferences[TEST_KEY] = testValue
         val test = sharedPreferences.getObject<Integer>(TEST_KEY)
@@ -99,14 +99,14 @@ class SharedPreferencesExtTest {
     }
 
     @Test(expected = Exception::class)
-    fun testWithWrongGetObject() {
+    private fun when_get_with_wrong_object_type_then_return_exception() {
         val testValue = mapOf("one" to 1)
         sharedPreferences[TEST_KEY] = testValue
         sharedPreferences.get(TEST_KEY, mapOf<String, Int>())
     }
 
     @Test
-    fun testClearAll() {
+    private fun when_calling_clear_all_then_all_data_should_be_cleard() {
         val testValue = "Nimble"
         sharedPreferences[TEST_KEY] = testValue
         var test = sharedPreferences.get(TEST_KEY, "")
