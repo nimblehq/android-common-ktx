@@ -5,10 +5,15 @@ import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateExtensionsTest {
+class DateExtTest {
 
     @Test
-    private fun `when calling with plus function, the date should move forward to the target`() {
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun `when calling with plus function, the date should move forward to the target`() {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.WEEK_OF_MONTH, 1)
         val nextWeek = calendar.time
