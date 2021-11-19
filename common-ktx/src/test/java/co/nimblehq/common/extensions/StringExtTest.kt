@@ -1,10 +1,9 @@
 package co.nimblehq.common.extensions
 
 import org.junit.Assert.assertEquals
-import org.junit.Ignore
 import org.junit.Test
 
-class StringExtKtTest {
+class StringExtTest {
 
     @Test
     fun `When given a string, isNotNullOrEmpty should return true`() {
@@ -74,21 +73,18 @@ class StringExtKtTest {
         assertEquals("snake_case", result)
     }
 
-    @Ignore
     @Test
     fun `When given a string in email format, it returns true`() {
         val result = "email@email.com".isEmailValid()
         assertEquals(true, result)
     }
 
-    @Ignore
     @Test
     fun `When given a string lacks of @, it returns false`() {
         val result = "emailemail.com".isEmailValid()
         assertEquals(false, result)
     }
 
-    @Ignore
     @Test
     fun `When given a string lacks of the top-level domains, it returns false`() {
         val result = "email@email".isEmailValid()
