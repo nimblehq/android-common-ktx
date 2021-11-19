@@ -6,9 +6,6 @@ import android.view.View
 import android.widget.ScrollView
 import androidx.annotation.DimenRes
 
-private const val COLLAPSED_STATE_ROTATION = 180f
-private const val EXPANDED_STATE_ROTATION = 0f
-
 /**
 * Make view visible.
 */
