@@ -7,17 +7,19 @@ import java.util.Calendar
 import java.util.Date
 
 val tomorrow: Date
-    get() = setDate(value = 1)
+    get() = shiftDate(value = 1)
 
 val yesterday: Date
-    get() = setDate(value = -1)
+    get() = shiftDate(value = -1)
 
 /**
- * Set set the date from millisecond time stamp
+ * Shift the date with the specific value
  *
- * @param value - time in millisecond
+ * @param value - days you want to shift from today
+ *
+ * @return the shifted date from today
  */
-private fun setDate(value: Int): Date {
+private fun shiftDate(value: Int): Date {
     val calendar = Calendar.getInstance()
     calendar.time = Date()
     calendar.add(Calendar.DATE, value)
@@ -27,7 +29,9 @@ private fun setDate(value: Int): Date {
 /**
  * Move forward with the type specific time interval like day, week, moth, year
  *
- * @param duration - time in interval
+ * @param duration - time in interval, ex 1.day, 1.week
+ *
+ * @return Date plus interval time
  */
 operator fun Date.plus(duration: TimeInterval): Date {
     val calendar = Calendar.getInstance()
@@ -39,7 +43,9 @@ operator fun Date.plus(duration: TimeInterval): Date {
 /**
  * Move backward with the type specific time interval like day, week, moth, year
  *
- * @param duration - time in interval
+ * @param duration - time in interval, ex 1.day, 1.week
+ *
+ * @return Date minus interval time
  */
 operator fun Date.minus(duration: TimeInterval): Date {
     val calendar = Calendar.getInstance()
@@ -51,9 +57,11 @@ operator fun Date.minus(duration: TimeInterval): Date {
 /**
  * Get the range between two date
  *
- * @param other - Date to set range with the current
+ * @param target - Date to set range with the current
+ *
+ * @return DateRange from current to target
  */
-operator fun Date.rangeTo(other: Date) = DateRange(this, other)
+operator fun Date.rangeTo(target: Date) = DateRange(this, target)
 
 /**
  * Set the date with specific time
@@ -65,6 +73,8 @@ operator fun Date.rangeTo(other: Date) = DateRange(this, other)
  * @param minute - positive int
  * @param second - positive int
  * @param millisecond - positive int
+ *
+ * @return Date with inputted values
  */
 fun Date.with(
     year: Int = -1,
@@ -91,6 +101,8 @@ fun Date.with(
  * Set the current date to the weekday of month
  *
  * @param weekday - week of moth
+ *
+ * @return Date with the week of moth in parameter
  */
 fun Date.with(weekday: Int = -1): Date {
     val calendar = Calendar.getInstance()
@@ -278,6 +290,8 @@ val Date.isTomorrow: Boolean
  *
  * @param date - Date want to check
  * @param variable - time of date
+ *
+ * @return value to check if the current date is in expected date
  */
 private fun isDateIn(date: Date, variable: Int = 0): Boolean {
     val now = Calendar.getInstance()
