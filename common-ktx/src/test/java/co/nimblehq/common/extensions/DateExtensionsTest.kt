@@ -16,7 +16,7 @@ class DateExtensionsTest {
     }
 
     @Test
-    private fun `when calli g with minus function, the date should move backward to the target`() {
+    private fun `when calling with minus function, the date should move backward to the target`() {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_MONTH, -2)
         val dayBeforeYesterday = calendar.time
