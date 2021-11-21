@@ -3,10 +3,10 @@ package co.nimblehq.common.extensions
 import android.graphics.*
 import android.view.View
 import androidx.annotation.DimenRes
+import androidx.annotation.Px
 
 /**
  * Make view visible.
- *
  */
 fun View.visible() {
     this.visibility = View.VISIBLE
@@ -91,6 +91,8 @@ fun View.setTopPaddingRes(@DimenRes dimenRes: Int) {
 /**
  * Enable view when the condition is matched.
  *
+ * Samples: btNext.enableWhen{ userName.isNotEmpty() && password.isNotEmpty() }
+ *
  * @param predicate The condition to enable the view.
  */
 fun View.enableWhen(predicate: () -> Boolean) {
@@ -104,7 +106,7 @@ fun View.enableWhen(predicate: () -> Boolean) {
  *
  * @return value in Sp unit
  */
-fun View.convertPxToSp(px: Int): Float {
+fun View.convertPxToSp(@Px px: Int): Float {
     return px / resources.displayMetrics.scaledDensity
 }
 
@@ -122,13 +124,13 @@ fun View.convertSpToPx(sp: Float): Int {
 /**
  * Return bitmap with specific size.
  *
- * @param height Height of bitmap result.
- * @param width Width of bitmap result.
+ * @param resultHeight Height of bitmap result.
+ * @param resultWidth Width of bitmap result.
  *
  * @return bitmap with given height and width
  */
-fun View.getBitmap(height: Int, width: Int): Bitmap {
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+fun View.getBitmap(resultHeight: Int, resultWidth: Int): Bitmap {
+    val bitmap = Bitmap.createBitmap(resultWidth, resultHeight, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
     val bgDrawable = this.background
     if (bgDrawable != null)
