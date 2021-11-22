@@ -12,9 +12,12 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
 
 /**
- * Unfortunatelly we need to pass context, as there is no proper way to parse font from fonts resource.
- * There is variant to parse raw resource and get it as InputStream, then convert it into file and then pass to Typeface.
- * But it is much easier to pass context.
+ * getTypeface from Compat first, if could nof found, then try to create with the family name
+ *
+ * @param context - Android context
+ * @param index -  StyleableRes index
+ *
+ * @return Typeface or null
  */
 fun TypedArray.getTypeface(context: Context, @StyleableRes index: Int) =
     runCatching { getFontCompat(context, index) }.getOrNull() ?: getString(index)?.let {
@@ -24,6 +27,14 @@ fun TypedArray.getTypeface(context: Context, @StyleableRes index: Int) =
         )
     }
 
+/**
+ * get Compat Font from Styleable Resource
+ *
+ * @param context - Android context
+ * @param index -  StyleableRes index
+ *
+ * @return Typeface Compat or null
+ */
 fun TypedArray.getFontCompat(context: Context, @StyleableRes index: Int): Typeface? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         getFont(index)
@@ -32,9 +43,22 @@ fun TypedArray.getFontCompat(context: Context, @StyleableRes index: Int): Typefa
     }
 }
 
+/**
+ * Get Compat Font from Font Resource
+ *
+ * @param fontId - font id in Font Resource
+ *
+ * @return Typeface Compat or null
+ */
 fun Context.getFontCompat(@FontRes fontId: Int): Typeface? =
     runCatching { ResourcesCompat.getFont(this, fontId) }.getOrNull()
 
+/**
+ * Get Color State List from Styleable Resource
+ *
+ * @paramc context - Android context
+ * @param index - Styleable Resource index
+ */
 fun TypedArray.getColorStateList(context: Context, @StyleableRes index: Int): ColorStateList? {
     if (hasValue(index)) {
         val resourceId = getResourceId(index, 0)
@@ -48,6 +72,12 @@ fun TypedArray.getColorStateList(context: Context, @StyleableRes index: Int): Co
     return getColorStateList(index)
 }
 
+/**
+ * Get Drawable from Styleable Resource
+ *
+ * @paramc context - Android context
+ * @param index - Styleable Resource index
+ */
 fun TypedArray.getDrawable(context: Context, @StyleableRes index: Int): Drawable? {
     if (hasValue(index)) {
         val resourceId = getResourceId(index, 0)
