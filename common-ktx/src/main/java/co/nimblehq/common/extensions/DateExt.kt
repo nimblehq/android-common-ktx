@@ -27,7 +27,7 @@ private fun shiftDate(value: Int): Date {
 }
 
 /**
- * Move forward with the type specific time interval like day, week, moth, year
+ * Move forward with the type specific time interval like day, week, month, year, ex : Date() + 1.week
  *
  * @param duration - time in interval, ex 1.day, 1.week
  *
@@ -41,7 +41,7 @@ operator fun Date.plus(duration: TimeInterval): Date {
 }
 
 /**
- * Move backward with the type specific time interval like day, week, moth, year
+ * Move backward with the type specific time interval like day, week, month, year
  *
  * @param duration - time in interval, ex 1.day, 1.week
  *
@@ -57,11 +57,11 @@ operator fun Date.minus(duration: TimeInterval): Date {
 /**
  * Get the range between two date
  *
- * @param target - Date to set range with the current
+ * @param endDate - Date to set range with the current
  *
  * @return DateRange from current to target
  */
-operator fun Date.rangeTo(target: Date) = DateRange(this, target)
+operator fun Date.rangeTo(endDate: Date) = DateRange(this, endDate)
 
 /**
  * Set the date with specific time
@@ -100,9 +100,9 @@ fun Date.with(
 /**
  * Set the current date to the weekday of month
  *
- * @param weekday - week of moth
+ * @param weekday - week of month
  *
- * @return Date with the week of moth in parameter
+ * @return Date with the week of month in parameter
  */
 fun Date.with(weekday: Int = -1): Date {
     val calendar = Calendar.getInstance()
@@ -181,9 +181,9 @@ val Date.endOfMinute: Date
 /**
  * Convert date to specific string format
  *
- * @param format - format date, ex: dd/MM/yyyy
+ * @param formatPattern - format date, ex: dd/MM/yyyy
  */
-fun Date.toString(format: String): String = SimpleDateFormat(format).format(this)
+fun Date.toString(formatPattern: String): String = SimpleDateFormat(formatPattern).format(this)
 
 /**
  * Check if the current date is Sunday
