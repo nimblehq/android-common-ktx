@@ -289,16 +289,16 @@ val Date.isTomorrow: Boolean
  * Check if the date is in a specific time
  *
  * @param date - Date want to check
- * @param variable - time of date
+ * @param valueOfDate - the value of date
  *
  * @return value to check if the current date is in expected date
  */
-private fun isDateIn(date: Date, variable: Int = 0): Boolean {
+private fun isDateIn(date: Date, valueOfDate: Int = 0): Boolean {
     val now = Calendar.getInstance()
     val cdate = Calendar.getInstance()
     cdate.timeInMillis = date.time
 
-    now.add(Calendar.DATE, variable)
+    now.add(Calendar.DATE, valueOfDate)
 
     return (now.get(Calendar.YEAR) == cdate.get(Calendar.YEAR)
         && now.get(Calendar.MONTH) == cdate.get(Calendar.MONTH)
