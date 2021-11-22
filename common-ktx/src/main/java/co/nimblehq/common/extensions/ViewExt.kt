@@ -1,9 +1,12 @@
 package co.nimblehq.common.extensions
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.*
 import android.view.View
 import androidx.annotation.DimenRes
 import androidx.annotation.Px
+import java.lang.ref.WeakReference
 
 /**
  * Make view visible.
@@ -46,7 +49,14 @@ fun View.visibleOrGone(visible: Boolean, delay: Long) {
     if (delay <= 0L) {
         visibleOrGone(visible)
     } else {
-        postDelayed({ visibleOrGone(visible) }, delay)
+        postDelayed({
+            val context: WeakReference<Context?>? = WeakReference(this.context)
+            if (context?.get() is Activity &&
+                (context?.get() as Activity).isFinishing) {
+                return@postDelayed
+            }
+            visibleOrGone(visible)
+        }, delay)
     }
 }
 
@@ -129,14 +139,20 @@ fun View.convertSpToPx(sp: Float): Int {
  *
  * @return bitmap with given height and width
  */
+@Throws(java.lang.IllegalArgumentException::class)
 fun View.getBitmap(resultHeight: Int, resultWidth: Int): Bitmap {
+    if (resultHeight <= 0 || resultWidth <= 0) throw IllegalArgumentException("Invalid arguments")
+
     val bitmap = Bitmap.createBitmap(resultWidth, resultHeight, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
     val bgDrawable = this.background
-    if (bgDrawable != null)
+
+    if (bgDrawable != null) {
         bgDrawable.draw(canvas)
-    else
+    } else {
         canvas.drawColor(Color.WHITE)
+    }
+
     this.draw(canvas)
     return bitmap
 }
