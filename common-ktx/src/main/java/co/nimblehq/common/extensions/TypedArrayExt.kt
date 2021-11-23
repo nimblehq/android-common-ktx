@@ -90,4 +90,3 @@ fun TypedArray.getDrawable(context: Context, @StyleableRes index: Int): Drawable
     }
     return getDrawable(index)
 }
-
