@@ -57,3 +57,13 @@ fun String.spaceToSnakeCase(): String {
 fun String.isEmailValid(): Boolean {
     return isNotEmpty() && PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
 }
+
+/**
+ * Check if the string is Thai.
+ *
+ * @return true if this string is Thai
+ */
+fun String.isThai(): Boolean {
+    val thaiRegex = "\\p{Thai}".toRegex()
+    return if (isEmpty() || isBlank()) false else all { thaiRegex.matches(it.toString()) }
+}

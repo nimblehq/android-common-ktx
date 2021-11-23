@@ -1,6 +1,7 @@
 package co.nimblehq.common.extensions
 
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
+import org.junit.Ignore
 import org.junit.Test
 
 class StringExtTest {
@@ -89,5 +90,20 @@ class StringExtTest {
     fun `When given a string lacks of the top-level domains, it returns false`() {
         val result = "email@email".isEmailValid()
         assertEquals(false, result)
+    }
+
+    @Ignore
+    @Test
+    fun `When given a Thai string, it returns true`() {
+        assertTrue("นามสกุลภาษาไทย".isThai())
+    }
+
+    @Ignore
+    @Test
+    fun `When given not a Thai string, it returns false`() {
+        assertFalse("".isThai())
+        assertFalse("นามสกุa".isThai())
+        assertFalse("的นาม".isThai()) // chinese character
+        assertFalse("ふりがなนาม".isThai()) // japanese characters
     }
 }
