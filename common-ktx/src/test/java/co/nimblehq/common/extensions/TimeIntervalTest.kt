@@ -2,7 +2,7 @@ package co.nimblehq.common.extensions
 
 import junit.framework.Assert.assertEquals
 import org.junit.Test
-import java.util.Calendar
+import java.util.*
 
 /**
  * Unit test for [TimeInterval].

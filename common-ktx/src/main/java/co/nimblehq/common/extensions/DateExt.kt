@@ -3,8 +3,7 @@ package co.nimblehq.common.extensions
 import co.nimblehq.common.extensions.date.DateRange
 import co.nimblehq.common.extensions.date.TimeInterval
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 val tomorrow: Date
     get() = shiftDate(value = 1)
@@ -308,8 +307,8 @@ private fun isDateIn(date: Date, valueOfDate: Int = 0): Boolean {
 /**
  * Convert from String to Date
  */
-fun String.toDate(format: String): Date? = try{
+fun String.toDate(format: String): Date? = try {
     SimpleDateFormat(format).parse(this)
-}catch (e : Exception) {
+} catch (e: Exception) {
     null
 }
