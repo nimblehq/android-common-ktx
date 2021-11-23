@@ -64,6 +64,6 @@ fun String.isEmailValid(): Boolean {
  * @return true if this string is Thai
  */
 fun String.isThai(): Boolean {
-    val thaiRegex = "\\p{Thai}".toRegex()
+    val thaiRegex = "([\\u0E00-\\u0E7F]+)".toRegex()
     return if (isEmpty() || isBlank()) false else all { thaiRegex.matches(it.toString()) }
 }

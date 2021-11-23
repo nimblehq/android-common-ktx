@@ -92,17 +92,15 @@ class StringExtTest {
         assertFalse(result)
     }
 
-    @Ignore
     @Test
     fun `When given a Thai string, it returns true`() {
         assertTrue("นามสกุลภาษาไทย".isThai())
     }
 
-    @Ignore
     @Test
     fun `When given not a Thai string, it returns false`() {
         assertFalse("".isThai())
-        assertFalse("นามสกุa".isThai())
+        assertFalse("นามสกุaEnglish".isThai())
         assertFalse("的นาม".isThai()) // chinese character
         assertFalse("ふりがなนาม".isThai()) // japanese characters
     }
