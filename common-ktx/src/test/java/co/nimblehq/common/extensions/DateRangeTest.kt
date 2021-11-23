@@ -4,9 +4,6 @@ import org.junit.Assert
 import org.junit.Test
 import java.util.*
 
-/**
- * Unit test for [DateRange].
- */
 class DateRangeTest {
 
     @Test

@@ -5,10 +5,7 @@ import junit.framework.Assert.assertEquals
 import org.junit.Test
 import java.util.*
 
-/**
- * Unit test for IntExtensions.
- */
-class IntExtensionsTest {
+class IntExtTest {
 
     @Test
     fun year() {
