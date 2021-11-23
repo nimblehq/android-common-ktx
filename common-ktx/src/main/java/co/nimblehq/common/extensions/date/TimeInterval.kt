@@ -3,6 +3,7 @@ package co.nimblehq.common.extensions.date
 import java.util.*
 
 class TimeInterval(internal val unit: Int, internal val value: Int) {
+
     val ago = calculate(from = Date(), value = -value)
 
     val forward = calculate(from = Date(), value = value)
