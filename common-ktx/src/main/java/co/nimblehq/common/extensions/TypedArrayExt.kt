@@ -15,7 +15,7 @@ import androidx.core.content.res.ResourcesCompat
  * getTypeface from Compat first, if could nof found, then try to create with the family name
  *
  * @param context - Android context
- * @param index -  StyleableRes index, ex: R.styleable.your_custom_attribute
+ * @param index - StyleableRes index, ex: R.styleable.your_custom_attribute
  *
  * @return Typeface or null
  */
@@ -31,7 +31,7 @@ fun TypedArray.getTypeface(context: Context, @StyleableRes index: Int) =
  * get Compat Font from Styleable Resource
  *
  * @param context - Android context
- * @param index -  StyleableRes index, ex: R.styleable.your_custom_attribute
+ * @param index - StyleableRes index, ex: R.styleable.your_custom_attribute
  *
  * @return Typeface Compat or null
  */
