@@ -4,9 +4,6 @@ import junit.framework.Assert.assertEquals
 import org.junit.Test
 import java.util.*
 
-/**
- * Unit test for [TimeInterval].
- */
 class TimeIntervalTest {
 
     @Test
