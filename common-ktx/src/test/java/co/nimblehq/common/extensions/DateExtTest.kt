@@ -8,7 +8,7 @@ import java.util.*
 class DateExtTest {
 
     @Test
-    fun `when calling with plus function, the date should move forward to the target`() {
+    private fun `when calling with plus function, the date should move forward to the target`() {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.WEEK_OF_MONTH, 1)
         val nextWeek = calendar.time

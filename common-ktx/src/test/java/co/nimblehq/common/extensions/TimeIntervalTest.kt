@@ -7,7 +7,7 @@ import java.util.*
 class TimeIntervalTest {
 
     @Test
-    fun `when compare yesterday and today with 1 day ago, it should be the same`() {
+    private fun `when compare yesterday and today with 1 day ago, it should be the same`() {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_MONTH, -1)
         val yesterday = calendar.time
@@ -15,7 +15,7 @@ class TimeIntervalTest {
     }
 
     @Test
-    fun `when forward 5 years from today, it should the same with five year later`() {
+    private fun `when forward 5 years from today, it should the same with five year later`() {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.YEAR, 5)
         val fiveYearsLater = calendar.time

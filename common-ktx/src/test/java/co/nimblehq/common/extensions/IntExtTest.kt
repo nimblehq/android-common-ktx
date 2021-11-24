@@ -8,82 +8,82 @@ import java.util.*
 class IntExtTest {
 
     @Test
-    fun `when checking with 1 year, it should be the same with TimeInterval in 1 year`() {
+    private fun `when checking with 1 year, it should be the same with TimeInterval in 1 year`() {
         assertEquals(TimeInterval(unit = Calendar.YEAR, value = 1), 1.year)
     }
 
     @Test
-    fun `when checking with 5 year, it should be the same with TimeInterval in 5 year`() {
+    private fun `when checking with 5 year, it should be the same with TimeInterval in 5 year`() {
         assertEquals(TimeInterval(unit = Calendar.YEAR, value = 5), 5.years)
     }
 
     @Test
-    fun `when checking with 1 month, it should be the same with TimeInterval in 0 month`() {
+    private fun `when checking with 1 month, it should be the same with TimeInterval in 0 month`() {
         assertEquals(TimeInterval(unit = Calendar.MONTH, value = 0), 1.month)
     }
 
     @Test
-    fun `when checking with 3 months, it should be the same with TimeInterval in 2 months`() {
+    private fun `when checking with 3 months, it should be the same with TimeInterval in 2 months`() {
         assertEquals(TimeInterval(unit = Calendar.MONTH, value = 2), 3.months)
     }
 
     @Test
-    fun `when checking with 1 week, it should be the same with TimeInterval in 1 week`() {
+    private fun `when checking with 1 week, it should be the same with TimeInterval in 1 week`() {
         assertEquals(TimeInterval(unit = Calendar.WEEK_OF_MONTH, value = 1), 1.week)
     }
 
     @Test
-    fun `when checking with 7 weeks, it should be the same with TimeInterval in 7 weeks`() {
+    private fun `when checking with 7 weeks, it should be the same with TimeInterval in 7 weeks`() {
         assertEquals(TimeInterval(unit = Calendar.WEEK_OF_MONTH, value = 7), 7.weeks)
     }
 
     @Test
-    fun `when checking with 1 day, it should be the same with TimeInterval in 1 day`() {
+    private fun `when checking with 1 day, it should be the same with TimeInterval in 1 day`() {
         assertEquals(TimeInterval(unit = Calendar.DAY_OF_MONTH, value = 1), 1.day)
     }
 
     @Test
-    fun `when checking with 9 days, it should be the same with TimeInterval in 9 days`() {
+    private fun `when checking with 9 days, it should be the same with TimeInterval in 9 days`() {
         assertEquals(TimeInterval(unit = Calendar.DAY_OF_MONTH, value = 9), 9.days)
     }
 
     @Test
-    fun `when checking with 1 hour, it should be the same with TimeInterval in 1 hour`() {
+    private fun `when checking with 1 hour, it should be the same with TimeInterval in 1 hour`() {
         assertEquals(TimeInterval(unit = Calendar.HOUR_OF_DAY, value = 1), 1.hour)
     }
 
     @Test
-    fun `when checking with 11 hours, it should be the same with TimeInterval in 11 hours`() {
+    private fun `when checking with 11 hours, it should be the same with TimeInterval in 11 hours`() {
         assertEquals(TimeInterval(unit = Calendar.HOUR_OF_DAY, value = 11), 11.hours)
     }
 
     @Test
-    fun `when checking with 1 minute, it should be the same with TimeInterval in 1 minute`() {
+    private fun `when checking with 1 minute, it should be the same with TimeInterval in 1 minute`() {
         assertEquals(TimeInterval(unit = Calendar.MINUTE, value = 1), 1.minute)
     }
 
     @Test
-    fun `when checking with 13 minutes, it should be the same with TimeInterval in 13 minutes`() {
+    private fun `when checking with 13 minutes, it should be the same with TimeInterval in 13 minutes`() {
         assertEquals(TimeInterval(unit = Calendar.MINUTE, value = 13), 13.minutes)
     }
 
     @Test
-    fun `when checking with 1 second, it should be the same with TimeInterval in 1 second`() {
+    private fun `when checking with 1 second, it should be the same with TimeInterval in 1 second`() {
         assertEquals(TimeInterval(unit = Calendar.SECOND, value = 1), 1.second)
     }
 
     @Test
-    fun `when checking with 15 seconds, it should be the same with TimeInterval in 15 seconds`() {
+    private fun `when checking with 15 seconds, it should be the same with TimeInterval in 15 seconds`() {
         assertEquals(TimeInterval(unit = Calendar.SECOND, value = 15), 15.seconds)
     }
 
     @Test
-    fun `when checking with 1 millisecond, it should be the same with TimeInterval in 1 millisecond`() {
+    private fun `when checking with 1 millisecond, it should be the same with TimeInterval in 1 millisecond`() {
         assertEquals(TimeInterval(unit = Calendar.MILLISECOND, value = 1), 1.millisecond)
     }
 
     @Test
-    fun `when checking with 15 milliseconds, it should be the same with TimeInterval in 15 milliseconds`() {
+    private fun `when checking with 15 milliseconds, it should be the same with TimeInterval in 15 milliseconds`() {
         assertEquals(TimeInterval(unit = Calendar.MILLISECOND, value = 15), 15.milliseconds)
     }
 }
