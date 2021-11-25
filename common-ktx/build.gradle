@@ -12,7 +12,6 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "co.nimblehq.common.ktx"
         minSdk 21
         targetSdk 31
         versionCode 1
