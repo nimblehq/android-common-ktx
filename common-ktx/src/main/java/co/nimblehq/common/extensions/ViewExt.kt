@@ -49,14 +49,16 @@ fun View.visibleOrGone(visible: Boolean, delay: Long) {
     if (delay <= 0L) {
         visibleOrGone(visible)
     } else {
-        postDelayed({
-            val context: WeakReference<Context?>? = WeakReference(this.context)
-            if (context?.get() is Activity &&
-                (context?.get() as Activity).isFinishing) {
-                return@postDelayed
-            }
-            visibleOrGone(visible)
-        }, delay)
+        postDelayed(
+            {
+                val context: WeakReference<Context?> = WeakReference(this.context)
+                if (context.get() is Activity && (context.get() as Activity).isFinishing) {
+                    return@postDelayed
+                }
+                visibleOrGone(visible)
+            },
+            delay
+        )
     }
 }
 

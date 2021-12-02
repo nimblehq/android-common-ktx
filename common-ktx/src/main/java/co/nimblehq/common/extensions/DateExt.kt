@@ -26,7 +26,8 @@ private fun shiftDate(value: Int): Date {
 }
 
 /**
- * Move forward with the type specific time interval like day, week, month, year, ex : Date() + 1.week
+ * Move forward with the type specific time interval like day, week, month, year.
+ * Ex : Date() + 1.week
  *
  * @param duration - time in interval, ex 1.day, 1.week
  *
@@ -181,8 +182,10 @@ val Date.endOfMinute: Date
  * Convert date to specific string format
  *
  * @param formatPattern - format date, ex: dd/MM/yyyy
+ * @param locale Locale region
  */
-fun Date.toString(formatPattern: String): String = SimpleDateFormat(formatPattern).format(this)
+fun Date.toString(formatPattern: String, locale: Locale = Locale.getDefault()): String =
+    SimpleDateFormat(formatPattern, locale).format(this)
 
 /**
  * Check if the current date is Sunday
@@ -299,16 +302,21 @@ private fun isDateIn(date: Date, valueOfDate: Int = 0): Boolean {
 
     now.add(Calendar.DATE, valueOfDate)
 
-    return (now.get(Calendar.YEAR) == cdate.get(Calendar.YEAR)
-        && now.get(Calendar.MONTH) == cdate.get(Calendar.MONTH)
-        && now.get(Calendar.DATE) == cdate.get(Calendar.DATE))
+    return now.get(Calendar.YEAR) == cdate.get(Calendar.YEAR)
+            && now.get(Calendar.MONTH) == cdate.get(Calendar.MONTH)
+            && now.get(Calendar.DATE) == cdate.get(Calendar.DATE)
 }
 
 /**
  * Convert from String to Date
+ *
+ * @param format Format pattern
+ * @param locale Region locale
+ *
+ * @return Return Date object from String with provided format
  */
-fun String.toDate(format: String): Date? = try {
-    SimpleDateFormat(format).parse(this)
+fun String.toDate(format: String, locale: Locale = Locale.getDefault()): Date? = try {
+    SimpleDateFormat(format, locale).parse(this)
 } catch (e: Exception) {
     null
 }
