@@ -38,9 +38,8 @@ task jacocoTestReport(type: JacocoReport) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports for Debug build"
 
-    dependsOn ":app:testStagingDebugUnitTest"
-    dependsOn ":data:testStagingDebugUnitTest"
-    dependsOn ":domain:testStagingDebugUnitTest"
+    dependsOn ":app:testDebugUnitTest"
+    dependsOn ":common-ktx:testDebugUnitTest"
 
     classDirectories.from = fileTree(
         dir: "$project.rootDir/app/build/intermediates/javac/stagingDebug/classes",
