@@ -50,7 +50,7 @@ This repository provides a collection of common Android extensions.
 
 ## Contributing
 
-For major changes, please open an issue first to discuss what you would like to change. Visit our [Wiki](https://github.com/nimblehq/android-common-ktx/wiki#how-to-contribute) for guidelines to contribute your ideas to our project.
+All contributions are welcome by opening an issue for discussion about what you would like to update. You can visit our [Wiki](https://github.com/nimblehq/android-common-ktx/wiki#how-to-contribute) for guidelines to contribute your ideas to our project.
 
 ## License
 
