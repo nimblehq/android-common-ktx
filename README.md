@@ -1,12 +1,56 @@
+<p align="center">
+  <img alt="Nimble logo" src="https://assets.nimblehq.co/logo/light/logo-light-text-320.png" />
+</p>
+
+---
+
 # Android Common Extensions
 
 This repository provides a collection of common Android extensions.
 
+[![](https://jitpack.io/v/nimblehq/android-common-ktx.svg)](https://jitpack.io/#nimblehq/android-common-ktx)
+
 ## Usage
 
-Clone the repository
+1. Add JitPack to your project `build.gradle`
+    - Groovy
 
-`git clone git@github.com:nimblehq/android-common-ktx.git`
+    ```groovy
+    allprojects {
+      repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+       }
+    }
+    ```
+
+    - Kotlin DSL
+
+    ```kotlin
+    repositories {
+    	...
+    	maven(url = "https://jitpack.io")
+    }
+    ```
+
+2. Add the dependency in the application `build.gradle (app)`
+    - Groovy
+
+    ```groovy
+    dependencies {
+    	implementation 'com.github.nimblehq:android-common-ktx:<version>'
+    }
+    ```
+
+    - Kotlin DSL
+
+    ```kotlin
+    implementation("com.github.nimblehq:android-common-ktx:<version>")
+    ```
+
+## Contributing
+
+All contributions are welcome by opening an issue for discussion about what you would like to update. You can visit our [Wiki](https://github.com/nimblehq/android-common-ktx/wiki#how-to-contribute) for guidelines to contribute your ideas to our project.
 
 ## License
 
