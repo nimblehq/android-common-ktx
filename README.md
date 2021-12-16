@@ -12,7 +12,7 @@ This repository provides a collection of common Android extensions.
 
 ## Usage
 
-1. Add JitPack to your project build.gradle
+1. Add JitPack to your project `build.gradle`
     - Groovy
 
     ```groovy
@@ -33,7 +33,7 @@ This repository provides a collection of common Android extensions.
     }
     ```
 
-2. Add the dependency in the application build.gradle
+2. Add the dependency in the application `build.gradle (app)`
     - Groovy
 
     ```groovy
