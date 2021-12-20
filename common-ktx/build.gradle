@@ -4,6 +4,9 @@ plugins {
     id 'maven-publish'
 }
 
+apply from: '../config/jacoco.gradle'
+apply from: '../config/detekt.gradle'
+
 def versionPropertiesFile = rootProject.file("./version.properties")
 def versionProperties = new Properties()
 versionProperties.load(new FileInputStream(versionPropertiesFile))

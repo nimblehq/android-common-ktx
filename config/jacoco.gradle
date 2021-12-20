@@ -1,0 +1,74 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+def fileGenerated = [
+    'android/**/*.*',
+    '**/R.class',
+    '**/R$*.class',
+    '**/*$ViewBinder*.*',
+    '**/*$InjectAdapter*.*',
+    '**/*Injector*.*',
+    '**/BuildConfig.*',
+    '**/Manifest*.*',
+    '**/*_ViewBinding*.*',
+    '**/*_Factory*.*',
+    '**/app/ui/screens/**/*DiffCallback*.*',
+    '**/*Test*.*',
+    // navigation component
+    '**/*FragmentArgs*',
+    '**/*FragmentDirections*',
+    '**/FragmentNavArgsLazy.kt',
+    '**/*Fragment*navArgs*',
+    '**/screens/common/StartFragment.*',
+    // kotlin enum Creator
+    '**/*$Creator*'
+]
+
+def packagesExcluded = [
+    'co/nimblehq/extensions/app/**',
+    'com/bumptech/glide'
+]
+
+def fileFilter = fileGenerated + packagesExcluded
+
+task jacocoTestReport(type: JacocoReport) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports for Debug build"
+
+    dependsOn ":app:testDebugUnitTest"
+    dependsOn ":common-ktx:testDebugUnitTest"
+
+    classDirectories.from = fileTree(
+        dir: "$project.rootDir/app/build/intermediates/javac/stagingDebug/classes",
+        excludes: fileFilter
+    ) + fileTree(
+        dir: "$project.rootDir/common-ktx/build/intermediates/javac/stagingDebug/classes",
+        excludes: fileFilter
+    ) + fileTree(
+        dir: "$project.rootDir/app/build/tmp/kotlin-classes/stagingDebug",
+        excludes: fileFilter
+    ) + fileTree(
+        dir: "$project.rootDir/common-ktx/build/tmp/kotlin-classes/stagingDebug",
+        excludes: fileFilter
+    )
+
+    sourceDirectories.from = files([
+        "$project.rootDir/app/src/main/java",
+        "$project.rootDir/common-ktx/src/main/java"
+    ])
+
+    executionData.from = fileTree(dir: project.rootDir, includes: [
+        "app/build/jacoco/testStagingDebugUnitTest.exec",
+        "common-ktx/build/jacoco/testStagingDebugUnitTest.exec"
+    ])
+
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
