@@ -15,7 +15,8 @@ fun String?.isNotNullOrEmpty(): Boolean = !this.isNullOrEmpty()
  * Check if the string not null or blank.
  * This extension wraps for more readable.
  *
- * @return true if this nullable char sequence is NOT either null or empty or consists solely of whitespace
+ * @return true if this nullable char sequence is NOT either null or empty or consists solely of
+ * whitespace
  */
 fun String?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
 
@@ -30,11 +31,14 @@ fun String?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
  */
 fun String.titleize(delimiter: String): String {
     return this.split(delimiter)
-        .joinToString(" ", transform = { s ->
-            s.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        .joinToString(
+            " ",
+            transform = { s ->
+                s.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                }
             }
-        })
+        )
 }
 
 /**
