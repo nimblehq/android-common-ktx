@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [ opened, edited, reopened, synchronize ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   review_pull_request:
     name: Review pull request
@@ -38,27 +42,14 @@ jobs:
         run: ./gradlew jacocoTestReport
 
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.7'
+          bundler-cache: true
 
-      - name: Cache gems
-        uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - name: Install Bundle and check environment versions
-        run: |
-          echo 'Install Bundle'
-          bundle config path vendor/bundle
-          bundle install
-          echo 'Check environment setup versions'
-          ruby --version
-          gem --version
-          bundler --version
-      - name: Run Danger
+      - name: Run Danger to wrap up the review
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger
+        run: |
+          bundle install
+          bundle exec danger
