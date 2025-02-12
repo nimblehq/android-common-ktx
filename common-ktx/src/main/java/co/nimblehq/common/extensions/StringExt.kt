@@ -2,6 +2,8 @@ package co.nimblehq.common.extensions
 
 import androidx.core.util.PatternsCompat
 import java.util.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 
 /**
  * Check if the string not null or empty.
@@ -9,7 +11,13 @@ import java.util.*
  *
  * @return true if this nullable char sequence is NOT either null or empty
  */
-fun String?.isNotNullOrEmpty(): Boolean = !this.isNullOrEmpty()
+@OptIn(ExperimentalContracts::class)
+fun String?.isNotNullOrEmpty(): Boolean {
+    contract {
+        returns(false) implies (this@isNotNullOrEmpty != null)
+    }
+    return !this.isNullOrEmpty()
+}
 
 /**
  * Check if the string not null or blank.
@@ -18,7 +26,13 @@ fun String?.isNotNullOrEmpty(): Boolean = !this.isNullOrEmpty()
  * @return true if this nullable char sequence is NOT either null or empty or consists solely of
  * whitespace
  */
-fun String?.isNotNullOrBlank(): Boolean = !this.isNullOrBlank()
+@OptIn(ExperimentalContracts::class)
+fun String?.isNotNullOrBlank(): Boolean {
+    contract {
+        returns(false) implies (this@isNotNullOrBlank != null)
+    }
+    return !this.isNullOrBlank()
+}
 
 /**
  * Eliminate the given character then titleize.
