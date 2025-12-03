@@ -1,28 +1,17 @@
-import java.util.Properties
-
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.detekt)
     id("maven-publish")
-    id("io.gitlab.arturbosch.detekt")
-}
-
-val versionPropertiesFile = rootProject.file("version.properties")
-val versionProperties = Properties().apply {
-    load(versionPropertiesFile.inputStream())
 }
 
 android {
-    namespace = "co.nimblehq.common"
+    namespace = "co.nimblehq.common.extensions"
 
-    compileSdk = 35
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 21
-
-        // versionCode/versionName removed - not needed for libraries
-        // Version managed in version.properties for publishing
-
+        minSdk = libs.versions.androidMinSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         consumerProguardFiles("consumer-rules.pro")
@@ -49,25 +38,18 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("com.google.code.gson:gson:2.8.9")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.gson)
 
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("org.hamcrest:hamcrest-library:1.3")
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.espresso.core)
+    androidTestImplementation(libs.test.hamcrest)
 
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.test.junit)
 
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
-}
-
-// Detekt configuration (inlined from config/detekt.gradle)
-detekt {
-    config.setFrom(files("$rootDir/config/detekt.yml"))
-    buildUponDefaultConfig = true
-    allRules = false
+    detektPlugins(libs.detekt.formatting)
 }
 
 afterEvaluate {
@@ -81,7 +63,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = "co.nimblehq"
                 artifactId = "extensions"
-                version = versionProperties.getProperty("versionName")
+                version = libs.versions.libVersionName.get()
             }
         }
     }

@@ -1,14 +1,16 @@
 import org.gradle.api.tasks.testing.Test
 
 plugins {
-    id("com.android.application") version "8.7.3" apply false
-    id("com.android.library") version "8.7.3" apply false
-    id("org.jetbrains.kotlin.android") version "2.0.21" apply false
-    id("io.gitlab.arturbosch.detekt") version "1.23.8"
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.detekt)
     jacoco
 }
 
 detekt {
+    toolVersion = libs.versions.detekt.get()
+
     config.setFrom(files("config/detekt.yml"))
     source.setFrom(
         files(
@@ -30,7 +32,7 @@ detekt {
 }
 
 jacoco {
-    toolVersion = "0.8.12"
+    toolVersion = libs.versions.jacoco.get()
 }
 
 val fileGenerated = listOf(
