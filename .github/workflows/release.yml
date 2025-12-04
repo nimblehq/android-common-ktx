@@ -14,12 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Read version.properties
-        uses: madhead/read-java-properties@latest
+      - name: Extract version from version catalog
         id: version
-        with:
-          file: version.properties
-          all: true
+        run: |
+          VERSION=$(grep '^libVersionName = ' gradle/libs.versions.toml | sed 's/libVersionName = "\(.*\)"/\1/')
+          echo "versionName=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
