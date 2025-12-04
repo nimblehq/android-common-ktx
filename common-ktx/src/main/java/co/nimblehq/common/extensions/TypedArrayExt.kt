@@ -60,16 +60,15 @@ fun Context.getFontCompat(@FontRes fontId: Int): Typeface? =
  * @param index - Styleable Resource index, sample: R.styleable.your_custom_attribute
  */
 fun TypedArray.getColorStateList(context: Context, @StyleableRes index: Int): ColorStateList? {
-    if (hasValue(index)) {
-        val resourceId = getResourceId(index, 0)
-        if (resourceId != 0) {
-            val value = AppCompatResources.getColorStateList(context, resourceId)
-            if (value != null) {
-                return value
-            }
-        }
+    val colorStateList = if (hasValue(index)) {
+        getResourceId(index, 0)
+            .takeIf { resourceId -> resourceId != 0 }
+            ?.let { resourceId -> AppCompatResources.getColorStateList(context, resourceId) }
+    } else {
+        null
     }
-    return getColorStateList(index)
+
+    return colorStateList ?: getColorStateList(index)
 }
 
 /**
@@ -79,14 +78,12 @@ fun TypedArray.getColorStateList(context: Context, @StyleableRes index: Int): Co
  * @param index - Styleable Resource index, sample: R.styleable.your_custom_attribute
  */
 fun TypedArray.getDrawable(context: Context, @StyleableRes index: Int): Drawable? {
-    if (hasValue(index)) {
-        val resourceId = getResourceId(index, 0)
-        if (resourceId != 0) {
-            val value = AppCompatResources.getDrawable(context, resourceId)
-            if (value != null) {
-                return value
-            }
-        }
+    val drawable = if (hasValue(index)) {
+        getResourceId(index, 0)
+            .takeIf { resourceId -> resourceId != 0 }
+            ?.let { resourceId -> AppCompatResources.getDrawable(context, resourceId) }
+    } else {
+        null
     }
-    return getDrawable(index)
+    return drawable ?: getDrawable(index)
 }
