@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.detekt)
     id("maven-publish")
 }
 
@@ -48,8 +47,6 @@ dependencies {
     androidTestImplementation(libs.test.hamcrest)
 
     testImplementation(libs.test.junit)
-
-    detektPlugins(libs.detekt.formatting)
 }
 
 afterEvaluate {

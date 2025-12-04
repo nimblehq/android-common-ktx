@@ -8,16 +8,16 @@ plugins {
     jacoco
 }
 
+dependencies {
+    detektPlugins(libs.detekt.formatting)
+}
+
 detekt {
     toolVersion = libs.versions.detekt.get()
 
     config.setFrom(files("config/detekt.yml"))
     source.setFrom(
-        files(
-            "app/src/main/java",
-            subprojects
-                .map { module -> "${module.projectDir}/src/main/java" }
-        )
+        files(subprojects.map { module -> "${module.projectDir}/src/main/java" })
     )
 
     parallel = false
