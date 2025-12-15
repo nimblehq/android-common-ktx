@@ -29,12 +29,9 @@ Dir[lint_dir].each do |file_name|
   android_lint.lint(inline_mode: true)
 end
 
-# TODO: Update to support test coverage report from Jacoco for Coroutine Template
-# Show Danger test coverage report from Jacoco for RxJavaTemplate
-jacoco_dir = "RxJavaTemplate/**/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
-markdown "## RxJavaTemplate Jacoco report:"
-Dir[jacoco_dir].each do |file_name|
-  # Report coverage of modified files, warn if total project coverage is under 80%
-  # or if any modified file's coverage is under 95%
-  shroud.report file_name, 80, 95, false
-end
+# Show Danger test coverage report from Kover
+# Report coverage of modified files, warn if total project coverage is under 80%
+# or if any modified file's coverage is under 95%
+kover_file = "app/build/reports/kover/reportCustom.xml"
+markdown "## Kover report for Android Common Extensions"
+shroud.reportKover moduleName: "Android Common Extensions Unit Tests", file: kover_file, totalProjectThreshold: 80, modifiedFileThreshold: 95, failIfUnderProjectThreshold: false, failIfUnderFileThreshold: false

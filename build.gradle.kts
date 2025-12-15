@@ -1,11 +1,11 @@
-import org.gradle.api.tasks.testing.Test
+import kotlinx.kover.gradle.plugin.dsl.KoverProjectExtension
 
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kover) apply false
     alias(libs.plugins.detekt)
-    jacoco
 }
 
 dependencies {
@@ -31,81 +31,47 @@ detekt {
     ignoredFlavors = listOf("production")
 }
 
-jacoco {
-    toolVersion = libs.versions.jacoco.get()
-}
-
-val fileGenerated = listOf(
-    "android/**/*.*",
-    "**/R.class",
-    "**/R\$*.class",
-    "**/*\$ViewBinder*.*",
-    "**/*\$InjectAdapter*.*",
-    "**/*Injector*.*",
-    "**/BuildConfig.*",
-    "**/Manifest*.*",
-    "**/*_ViewBinding*.*",
-    "**/*_Factory*.*",
-    "**/app/ui/screens/**/*DiffCallback*.*",
-    "**/*Test*.*",
-    // navigation component
-    "**/*FragmentArgs*",
-    "**/*FragmentDirections*",
-    "**/FragmentNavArgsLazy.kt",
-    "**/*Fragment*navArgs*",
-    "**/screens/common/StartFragment.*",
-    // kotlin enum Creator
-    "**/*\$Creator*"
-)
-
-val packagesExcluded = listOf(
-    "co/nimblehq/extensions/app/**",
-    "com/bumptech/glide"
-)
-
-val fileFilter = fileGenerated + packagesExcluded
-
-tasks.register<JacocoReport>("jacocoTestReport") {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports for Debug build"
-
-    dependsOn(":app:testDebugUnitTest")
-    dependsOn(":common-ktx:testDebugUnitTest")
-
-    classDirectories.setFrom(
-        fileTree("${project.rootDir}/app/build/intermediates/javac/debug/classes") {
-            exclude(fileFilter)
-        },
-        fileTree("${project.rootDir}/common-ktx/build/intermediates/javac/debug/classes") {
-            exclude(fileFilter)
-        },
-        fileTree("${project.rootDir}/app/build/tmp/kotlin-classes/debug") {
-            exclude(fileFilter)
-        },
-        fileTree("${project.rootDir}/common-ktx/build/tmp/kotlin-classes/debug") {
-            exclude(fileFilter)
+subprojects {
+    apply(plugin = "org.jetbrains.kotlinx.kover")
+    configure<KoverProjectExtension> {
+        reports {
+            filters {
+                excludes {
+                    androidGeneratedClasses()
+                    annotatedBy(
+                        "androidx.annotation.VisibleForTesting"
+                    )
+                    classes(
+                        // View Binding & Data Binding
+                        "**/*_ViewBinding*",
+                        "**/*_Factory*",
+                        "**/*\$ViewBinder*",
+                        "**/*\$InjectAdapter*",
+                        "**/*Injector*",
+                        "*.*_ComponentTreeDeps*",
+                        "*.*_HiltComponents*",
+                        "*.*_MembersInjector*",
+                        "*\$InstanceHolder",
+                        // Navigation Component
+                        "**/*FragmentArgs*",
+                        "**/*FragmentDirections*",
+                        "**/FragmentNavArgsLazy*",
+                        "**/*Fragment*navArgs*",
+                        "**/screens/common/StartFragment*",
+                        // DiffCallback
+                        "**/app/ui/screens/**/*DiffCallback*",
+                        // Kotlin Enum Creator
+                        "*.*\$Creator*",
+                        // Test files
+                        "**/*Test*"
+                    )
+                    packages(
+                        "co.nimblehq.extensions.app",
+                        "com.bumptech.glide"
+                    )
+                }
+            }
         }
-    )
-
-    sourceDirectories.setFrom(
-        files(
-            "${project.rootDir}/app/src/main/java",
-            "${project.rootDir}/common-ktx/src/main/java"
-        )
-    )
-
-    executionData.setFrom(
-        fileTree(project.rootDir) {
-            include(
-                "app/build/jacoco/testDebugUnitTest.exec",
-                "common-ktx/build/jacoco/testDebugUnitTest.exec"
-            )
-        }
-    )
-
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
     }
 }
 

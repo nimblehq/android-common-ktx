@@ -75,3 +75,11 @@ afterEvaluate {
         }
     }
 }
+
+kover {
+    currentProject {
+        createVariant("custom") {
+            add("debug")
+        }
+    }
+}
