@@ -14,7 +14,7 @@ import kotlin.contracts.contract
 @OptIn(ExperimentalContracts::class)
 fun String?.isNotNullOrEmpty(): Boolean {
     contract {
-        returns(false) implies (this@isNotNullOrEmpty != null)
+        returns(true) implies (this@isNotNullOrEmpty != null)
     }
     return !this.isNullOrEmpty()
 }
@@ -29,7 +29,7 @@ fun String?.isNotNullOrEmpty(): Boolean {
 @OptIn(ExperimentalContracts::class)
 fun String?.isNotNullOrBlank(): Boolean {
     contract {
-        returns(false) implies (this@isNotNullOrBlank != null)
+        returns(true) implies (this@isNotNullOrBlank != null)
     }
     return !this.isNullOrBlank()
 }
