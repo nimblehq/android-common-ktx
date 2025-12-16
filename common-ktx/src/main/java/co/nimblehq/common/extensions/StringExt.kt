@@ -5,6 +5,8 @@ import java.util.*
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
+private val THAI_REGEX = "([\\u0E00-\\u0E7F]+)".toRegex()
+
 /**
  * Check if the string not null or empty.
  * This extension wraps for more readable.
@@ -82,6 +84,5 @@ fun String.isEmailValid(): Boolean {
  * @return true if this string is Thai
  */
 fun String.isThai(): Boolean {
-    val thaiRegex = "([\\u0E00-\\u0E7F]+)".toRegex()
-    return if (isEmpty() || isBlank()) false else all { thaiRegex.matches(it.toString()) }
+    return isNotEmpty() && all { THAI_REGEX.matches(it.toString()) }
 }
