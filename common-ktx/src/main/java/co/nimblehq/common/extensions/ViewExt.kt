@@ -1,11 +1,17 @@
+@file:Suppress("TooManyFunctions")
+
 package co.nimblehq.common.extensions
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.view.View
 import androidx.annotation.DimenRes
 import androidx.annotation.Px
+import androidx.core.graphics.createBitmap
+import androidx.core.view.isVisible
 import java.lang.ref.WeakReference
 
 /**
@@ -77,7 +83,7 @@ fun View.visibleOrInvisible(visible: Boolean) {
  * @param listener The function would be called after checking view is visible.
  */
 inline fun View.ifVisibleThen(listener: (View) -> Unit) {
-    if (this.visibility == View.VISIBLE) {
+    if (this.isVisible) {
         listener.invoke(this)
     }
 }
@@ -143,9 +149,9 @@ fun View.convertSpToPx(sp: Float): Int {
  */
 @Throws(java.lang.IllegalArgumentException::class)
 fun View.getBitmap(resultHeight: Int, resultWidth: Int): Bitmap {
-    if (resultHeight <= 0 || resultWidth <= 0) throw IllegalArgumentException("Invalid arguments")
+    require(resultWidth > 0 && resultHeight > 0) { "Invalid arguments" }
 
-    val bitmap = Bitmap.createBitmap(resultWidth, resultHeight, Bitmap.Config.ARGB_8888)
+    val bitmap = createBitmap(resultWidth, resultHeight)
     val canvas = Canvas(bitmap)
     val bgDrawable = this.background
 

@@ -1,6 +1,8 @@
 package co.nimblehq.common.extensions
 
-import org.junit.Assert.*
+import junit.framework.TestCase.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*

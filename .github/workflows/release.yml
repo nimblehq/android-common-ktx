@@ -1,33 +1,33 @@
 name: Deploy Release
 
 on:
-  # Trigger the workflow on push action in develop branch
+  # Trigger the workflow on push action in main branch
   # So it will trigger when the PR of the feature branch was merged.
   push:
     branches:
       - main
+
 jobs:
   app_deploy:
     name: Deploy and upload to JitPack
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
 
-      - name: Read version.properties
-        uses: madhead/read-java-properties@latest
+      - name: Extract version from version catalog
         id: version
-        with:
-          file: version.properties
-          all: true
+        run: |
+          VERSION=$(grep '^libVersionName = ' gradle/libs.versions.toml | sed 's/libVersionName = "\(.*\)"/\1/')
+          echo "versionName=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: '${{ steps.version.outputs.versionName }}'
-          release_name: 'Release ${{ steps.version.outputs.versionName }}'
+          name: 'Release ${{ steps.version.outputs.versionName }}'
           draft: false
           prerelease: false

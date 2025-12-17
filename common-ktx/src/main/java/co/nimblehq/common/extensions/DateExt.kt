@@ -1,9 +1,13 @@
+@file:Suppress("TooManyFunctions")
+
 package co.nimblehq.common.extensions
 
 import co.nimblehq.common.extensions.date.DateRange
 import co.nimblehq.common.extensions.date.TimeInterval
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 val tomorrow: Date
     get() = shiftDate(value = 1)
@@ -76,6 +80,7 @@ operator fun Date.rangeTo(endDate: Date) = DateRange(this, endDate)
  *
  * @return Date with inputted values
  */
+@Suppress("LongParameterList")
 fun Date.with(
     year: Int = -1,
     month: Int = -1,
@@ -83,7 +88,7 @@ fun Date.with(
     hour: Int = -1,
     minute: Int = -1,
     second: Int = -1,
-    millisecond: Int = -1
+    millisecond: Int = -1,
 ): Date {
     val calendar = Calendar.getInstance()
     calendar.time = this
@@ -302,9 +307,9 @@ private fun isDateIn(date: Date, valueOfDate: Int = 0): Boolean {
 
     now.add(Calendar.DATE, valueOfDate)
 
-    return now.get(Calendar.YEAR) == cdate.get(Calendar.YEAR)
-            && now.get(Calendar.MONTH) == cdate.get(Calendar.MONTH)
-            && now.get(Calendar.DATE) == cdate.get(Calendar.DATE)
+    return now.get(Calendar.YEAR) == cdate.get(Calendar.YEAR) &&
+        now.get(Calendar.MONTH) == cdate.get(Calendar.MONTH) &&
+        now.get(Calendar.DATE) == cdate.get(Calendar.DATE)
 }
 
 /**
@@ -315,8 +320,6 @@ private fun isDateIn(date: Date, valueOfDate: Int = 0): Boolean {
  *
  * @return Return Date object from String with provided format
  */
-fun String.toDate(format: String, locale: Locale = Locale.getDefault()): Date? = try {
+fun String.toDate(format: String, locale: Locale = Locale.getDefault()): Date? = runCatching {
     SimpleDateFormat(format, locale).parse(this)
-} catch (e: Exception) {
-    null
-}
+}.getOrNull()
