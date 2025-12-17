@@ -51,3 +51,18 @@ dependencies {
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.test.espresso.core)
 }
+
+/*
+ * Kover configs
+ */
+dependencies {
+    kover(projects.commonKtx)
+}
+
+kover {
+    currentProject {
+        createVariant("custom") {
+            add("debug")
+        }
+    }
+}

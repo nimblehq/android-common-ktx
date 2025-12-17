@@ -15,9 +15,9 @@ detekt = "1.23.8"
 gradle = "8.13.0"
 gson = "2.8.9"
 hamcrest = "1.3"
-jacoco = "0.8.12"
 junit = "4.13.2"
 kotlin = "2.2.21"
+kover = "0.9.3"
 material = "1.4.0"
 
 [libraries]
@@ -43,3 +43,4 @@ android-application = { id = "com.android.application", version.ref = "gradle" }
 android-library = { id = "com.android.library", version.ref = "gradle" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
