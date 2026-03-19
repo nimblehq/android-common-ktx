@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Android Extensions</string>
+
+    <!-- Permission Demo Screen -->
+    <string name="permission_demo_title">Permission Demo</string>
+
+    <!-- Camera Permission Section -->
+    <string name="camera_permission_title">Camera Permission</string>
+    <string name="camera_permission_handler_example">rememberPermissionHandler Example</string>
+    <string name="camera_permission_granted">Camera permission granted</string>
+    <string name="camera_permission_permanently_denied">Camera access is permanently denied.</string>
+    <string name="camera_permission_rationale">Camera access is needed to take photos</string>
+    <string name="camera_permission_grant_button">Grant Camera Permission</string>
+
+    <!-- Location Permission Section -->
+    <string name="location_permission_title">Location Permission</string>
+    <string name="location_permission_handler_example">HandlePermissionsRequest Example</string>
+    <string name="location_permission_granted">Location permission granted</string>
+    <string name="location_permission_request_button">Request Location Permission</string>
+    <string name="location_permission_callback_granted">Permission Granted</string>
+    <string name="location_permission_callback_denied_temporary">Temporarily Permission Denied</string>
+    <string name="location_permission_callback_denied_permanent">Permanently Permission Denied</string>
+
+    <!-- Shared -->
+    <string name="permission_open_settings_button">Open Settings</string>
 </resources>
